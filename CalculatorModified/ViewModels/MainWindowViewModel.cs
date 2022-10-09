@@ -21,17 +21,6 @@ namespace CalculatorModified.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
 
-        //private string nextNumber;
-        //public string NextNumber
-        //{
-        //    get => nextNumber;
-        //    set
-        //    {
-        //        nextNumber = value;
-        //        //[CallerMemberName] позволяет в этом месте оставлять скобки пустыми
-        //        OnPropertyChanged();
-        //    }
-        //}
         private string equation;
         public string Equation
         {
@@ -54,6 +43,7 @@ namespace CalculatorModified.ViewModels
             }
         }
 
+        //Вспомогательные переменные
         private string firstNumber = "0";
         private string secondNumber = "";
         private string operation = "+";
@@ -67,16 +57,13 @@ namespace CalculatorModified.ViewModels
             //обработка результатов нажатия кнопки
             string buttonContent = p as string;
 
-            //if (buttonContent != "=")
-            //    Equation += buttonContent;
-            //else
-            //    Result = Calculator.StringParser(Equation);
-
+            //Выделяем численную часть в поступающем наборе символов
             if (Char.IsDigit(buttonContent[0]) || buttonContent[0] == ',')
             {
                 secondNumber += buttonContent;
                 Equation = Result + operation + secondNumber;
             }
+            //Действие при нажатии кнопки "="
             else if (buttonContent == "=")
             {
                 Result = Calculator.Operation(Convert.ToDouble(firstNumber), Convert.ToDouble(secondNumber), operation);
@@ -85,6 +72,7 @@ namespace CalculatorModified.ViewModels
                 secondNumber = "";
                 operation = "+";
             }
+            //Действие для очистки окна вычислений
             else if (buttonContent == "C")
             {
                 firstNumber = "0";
@@ -93,6 +81,7 @@ namespace CalculatorModified.ViewModels
                 Result = 0;
                 operation = "+";
             }
+            //Обработка нажатия остальных кнопок
             else
             {
                 double.TryParse(firstNumber, out double value1);

@@ -8,6 +8,7 @@ namespace CalculatorModified.Models
 {
     static class Calculator
     {
+        //Метод применяет мат.операцию к паре переменных в зависимости от поступившей строки operation 
         public static double Operation(double num1, double num2, string operation)
         {
             double result = 0;
@@ -28,36 +29,5 @@ namespace CalculatorModified.Models
             }
             return result;
         }
-
-        //public static double StringParser(string inputString)
-        //{
-        //    string strNumber = "";
-        //    string operation = "+";
-        //    double result = 0;
-        //    double nextNumber;
-        //    string modifiedInput = "";
-
-        //    //Первичный проход по строке
-        //    for (int i = 0; i < inputString.Length; i++)
-        //    {
-        //        if (Char.IsDigit(inputString[i]) || inputString[i] == ',')
-        //        {
-        //            strNumber += inputString[i];
-        //        }
-        //        else
-        //        {
-        //            nextNumber = Convert.ToDouble(strNumber);
-        //            strNumber = "";
-        //            result = Operation(result, nextNumber, operation);
-        //            operation = Convert.ToString(inputString[i]);
-        //        }
-        //    }
-
-        //    nextNumber = Convert.ToDouble(strNumber);
-        //    strNumber = "";
-        //    result = Operation(result, nextNumber, operation);
-
-        //    return result;
-        //}
     }
 }
