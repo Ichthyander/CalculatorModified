@@ -23,9 +23,6 @@ namespace CalculatorModified
         public MainWindow()
         {
             InitializeComponent();
-            Random random = new Random();
-            double displayNumber = random.Next(1000000)/100.0;
-            calculatorDisplay.Text = displayNumber.ToString("N2");
         }
     }
 }

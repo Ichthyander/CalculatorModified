@@ -4,11 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalculatorModified"
+        xmlns:vm="clr-namespace:CalculatorModified.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="Auto" Width="Auto" MinWidth="240" MinHeight="360" SizeToContent="WidthAndHeight" Background="Gray">
+    <Window.DataContext>
+        <!--ViewModel становится контекстом для всего окна-->
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="100"/>
             <RowDefinition x:Name="uniformGrid" Height="6*"/>
         </Grid.RowDefinitions>
         <Border 
@@ -19,16 +24,33 @@
             Background="#FFD4EAFD"
             BorderBrush="Aquamarine"
             >
-            <TextBlock
-                x:Name = "calculatorDisplay"
-                HorizontalAlignment = "Right"
-                VerticalAlignment = "Bottom" 
-                FontFamily="Arial Narrow" 
-                FontSize="32"
-                FontWeight="Bold"
-                Padding="5" 
-                >
-            </TextBlock>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.25*"/>
+                    <RowDefinition Height="0.75*"/>
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Text="{Binding Path=Equation}"
+                    Grid.Row="0"
+                    HorizontalAlignment = "Right"
+                    VerticalAlignment = "Bottom" 
+                    FontFamily="Arial Narrow" 
+                    FontSize="16"
+                    FontWeight="Light"
+                    Padding="2" 
+                />
+                <TextBlock
+                    Text="{Binding Path=Result}"
+                    Grid.Row="1"
+                    HorizontalAlignment = "Right"
+                    VerticalAlignment = "Bottom" 
+                    FontFamily="Arial Narrow" 
+                    FontSize="32"
+                    FontWeight="Bold"
+                    Padding="5" 
+                />
+            </Grid>
+
         </Border>
         <UniformGrid Grid.Row="1" Rows="6" Columns="4" Margin="3 3 1 1">
             <UniformGrid.Background>
@@ -37,120 +59,188 @@
 
             <Button Content="%" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
                 <Button.Background>
-                    <SolidColorBrush Color="#FFD4D4D4"/>
+                    <SolidColorBrush Color="#FFF00E0E"/>
                 </Button.Background>
             </Button>
             <Button Content="CE" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
                 <Button.Background>
-                    <SolidColorBrush Color="#FFD4D4D4"/>
+                    <SolidColorBrush Color="#FFF00E0E"/>
                 </Button.Background>
             </Button>
-            <Button Content="C" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}"
+                    CommandParameter="C"
+                    Content="C" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="#FFD4D4D4"/>
                 </Button.Background>
             </Button>
             <Button Content="←" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
                 <Button.Background>
-                    <SolidColorBrush Color="#FFD4D4D4"/>
+                    <SolidColorBrush Color="#FFF00E0E"/>
                 </Button.Background>
             </Button>
             <Button Content="1/x" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
                 <Button.Background>
-                    <SolidColorBrush Color="#FFD4D4D4"/>
+                    <SolidColorBrush Color="#FFF00E0E"/>
                 </Button.Background>
             </Button>
             <Button Content="x²" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
                 <Button.Background>
-                    <SolidColorBrush Color="#FFD4D4D4"/>
+                    <SolidColorBrush Color="#FFF00E0E"/>
                 </Button.Background>
             </Button>
             <Button Content="√x" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
                 <Button.Background>
-                    <SolidColorBrush Color="#FFD4D4D4"/>
+                    <SolidColorBrush Color="#FFF00E0E"/>
                 </Button.Background>
             </Button>
-            <Button Content="÷" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}"
+                    CommandParameter="/"
+                    Content="÷" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="#FFD4D4D4"/>
                 </Button.Background>
             </Button>
-            <Button Content="7" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}"
+                    CommandParameter="7"
+                    Content="7" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
                 </Button.Background>
             </Button>
-            <Button Content="8" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}" 
+                    CommandParameter="8"
+                    Content="8" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
                 </Button.Background>
             </Button>
-            <Button Content="9" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}" 
+                    CommandParameter="9"
+                    Content="9" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
                 </Button.Background>
             </Button>
-            <Button Content="×" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}"
+                    CommandParameter="*"
+                    Content="×" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="#FFD4D4D4"/>
                 </Button.Background>
             </Button>
-            <Button Content="4" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}" 
+                    CommandParameter="4"
+                    Content="4" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
                 </Button.Background>
             </Button>
-            <Button Content="5" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}" 
+                    CommandParameter="5"
+                    Content="5" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
                 </Button.Background>
             </Button>
-            <Button Content="6" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}" 
+                    CommandParameter="6"
+                    Content="6" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
                 </Button.Background>
             </Button>
-            <Button Content="-" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}" 
+                    CommandParameter="-"
+                    Content="-" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="#FFD4D4D4"/>
                 </Button.Background>
             </Button>
-            <Button Content="1" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}" 
+                    CommandParameter="1"
+                    Content="1" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
                 </Button.Background>
             </Button>
-            <Button Content="2" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}" 
+                    CommandParameter="2"
+                    Content="2" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
                 </Button.Background>
             </Button>
-            <Button Content="3" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}" 
+                    CommandParameter="3"
+                    Content="3" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
                 </Button.Background>
             </Button>
-            <Button Content="+" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}"
+                    CommandParameter="+"
+                    Content="+" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="#FFD4D4D4"/>
                 </Button.Background>
             </Button>
             <Button Content="+/-" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
                 <Button.Background>
-                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
+                    <SolidColorBrush Color="#FFF00E0E"/>
                 </Button.Background>
             </Button>
-            <Button Content="0" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}"
+                    CommandParameter="0"
+                    Content="0" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
                 </Button.Background>
             </Button>
-            <Button Content="," Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}"
+                    CommandParameter=","
+                    Content="," 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}"/>
                 </Button.Background>
             </Button>
-            <Button Content="=" Margin="2" Padding="5" FontFamily="Arial" FontSize="16">
+            <Button Command="{Binding Path=AddCommand}"
+                    CommandParameter="="
+                    Content="=" 
+                    Margin="2" Padding="5" 
+                    FontFamily="Arial" FontSize="16">
                 <Button.Background>
                     <SolidColorBrush Color="#FFD4D4D4"/>
                 </Button.Background>
